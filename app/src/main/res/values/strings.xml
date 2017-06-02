@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">todo_mvp</string>
+    <string name="app_name">Notes</string>
+    <string name="navigation_view_header_title">Notes</string>
+    <string name="statistics_title">Statistics</string>
 </resources>
