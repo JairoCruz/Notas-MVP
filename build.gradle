@@ -24,3 +24,12 @@ allprojects {
 task clean(type: Delete) {
   delete rootProject.buildDir
 }
+
+// Definiendo las versiones en un solo lugar
+ext {
+
+
+  // App dependencies
+  supportLibraryVersion = '25.3.1'
+
+}
