@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.tse.todo_mvp.adapter.NotesAdapter;
+import com.example.tse.todo_mvp.addnote.AddNoteActivity;
 import com.example.tse.todo_mvp.model.Note;
 
 import java.util.List;
@@ -50,6 +51,7 @@ public class NotesFragment extends Fragment implements NotesContract.View {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mListAdapter = new NotesAdapter(Note.inicializarData(), mItemListener);
+        mActionListener = new NotesPresenter(this);
 
     }
 
@@ -78,6 +80,7 @@ public class NotesFragment extends Fragment implements NotesContract.View {
             @Override
             public void onClick(View v) {
                 Log.i(NAME_CLASSE, "PRESIONAR FLOTATIN ACTION BUTTON");
+                mActionListener.addNewNote();
             }
         });
 
@@ -135,8 +138,8 @@ public class NotesFragment extends Fragment implements NotesContract.View {
 
     @Override
     public void showAddNote() {
-        /*Intent intent = new Intent(getContext(), AddNoteActivity.class);
-        startActivityForResult(intent, REQUEST_ADD_NOTE);*/
+        Intent intent = new Intent(getContext(), AddNoteActivity.class);
+        startActivityForResult(intent, REQUEST_ADD_NOTE);
     }
 
     @Override
