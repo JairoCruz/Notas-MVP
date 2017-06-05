@@ -1,5 +1,6 @@
 package com.example.tse.todo_mvp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -16,13 +17,20 @@ import android.view.ViewGroup;
 import com.example.tse.todo_mvp.adapter.NotesAdapter;
 import com.example.tse.todo_mvp.model.Note;
 
+import java.util.List;
+
 /**
  * Created by TSE on 2/6/2017.
  */
 
-public class NotesFragment extends Fragment {
+public class NotesFragment extends Fragment implements NotesContract.View {
+
+    private static final int REQUEST_ADD_NOTE = 1;
+
+    private NotesContract.UserActionsListener mActionListener;
 
     NotesAdapter mListAdapter;
+
     private String NAME_CLASSE = NotesFragment.class.getSimpleName();
 
 
@@ -96,14 +104,45 @@ public class NotesFragment extends Fragment {
 
 
 
-
-
-
     NotesAdapter.NoteItemListener mItemListener = new NotesAdapter.NoteItemListener() {
         @Override
         public void onNoteClick(Note clickedNote) {
            //Log.i("informacion","Estamos " + clickedNote.getmTitle());
             // Desde la implementacion de este metodo abrire el detalle del elemento seleccionado en el recycler view
+            mActionListener.openNoteDetails(clickedNote);
         }
     };
+
+    @Override
+    public void setProgressIndicator(final boolean active) {
+        if (getView() == null) {
+            return;
+        }
+
+        final SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.refresh_layout);
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(active);
+            }
+        });
+    }
+
+    @Override
+    public void showNotes(List<Note> notes) {
+        mListAdapter.replaceData(notes);
+    }
+
+    @Override
+    public void showAddNote() {
+        /*Intent intent = new Intent(getContext(), AddNoteActivity.class);
+        startActivityForResult(intent, REQUEST_ADD_NOTE);*/
+    }
+
+    @Override
+    public void showNoteDetailUI(String noteId) {
+        /*Intent intent = new Intent(getContext(), NoteDetailActivity.class);
+        intent.putExtra(NoteDetailActivity.EXTRA_NOTE_ID, noteId);
+        startActivity(intent);*/
+    }
 }
