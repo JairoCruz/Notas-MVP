@@ -60,4 +60,8 @@ public final class Note {
         notes.add(new Note("jagiro","feo"));
         return notes;
     }
+
+    public boolean isEmpty() {
+        return (mTitle == null || "".equals(mTitle)) && (mDescription == null || "".equals(mDescription));
+    }
 }
