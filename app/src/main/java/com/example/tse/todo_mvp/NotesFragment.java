@@ -16,8 +16,10 @@ import android.view.ViewGroup;
 
 import com.example.tse.todo_mvp.adapter.NotesAdapter;
 import com.example.tse.todo_mvp.addnote.AddNoteActivity;
+import com.example.tse.todo_mvp.model.Injection;
 import com.example.tse.todo_mvp.model.Note;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,8 +52,8 @@ public class NotesFragment extends Fragment implements NotesContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mListAdapter = new NotesAdapter(Note.inicializarData(), mItemListener);
-        mActionListener = new NotesPresenter(this);
+        mListAdapter = new NotesAdapter(new ArrayList<Note>(0)/*Note.inicializarData()*/, mItemListener);
+        mActionListener = new NotesPresenter(Injection.provideNotesRepository(),this);
 
     }
 

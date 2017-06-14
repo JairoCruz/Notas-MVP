@@ -27,6 +27,7 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.tse.todo_mvp.R;
+import com.example.tse.todo_mvp.model.Injection;
 
 import java.io.IOException;
 
@@ -59,7 +60,7 @@ public class AddNoteFragment extends Fragment implements AddNoteContract.View {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mActionListener = new AddNotePresenter(this);
+        mActionListener = new AddNotePresenter(Injection.provideNotesRepository(), this, Injection.provideImageFile());
 
         FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_add_notes);
         fab.setImageResource(R.drawable.ic_assessment_black_18dp);

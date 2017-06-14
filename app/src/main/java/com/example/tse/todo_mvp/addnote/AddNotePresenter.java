@@ -1,6 +1,7 @@
 package com.example.tse.todo_mvp.addnote;
 
 import com.example.tse.todo_mvp.model.Note;
+import com.example.tse.todo_mvp.model.NotesRepository;
 import com.example.tse.todo_mvp.util.ImageFile;
 
 import java.io.IOException;
@@ -16,13 +17,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class AddNotePresenter implements AddNoteContract.UserActionsListener {
 
     private final AddNoteContract.View mAddNoteView;
-
-
+    private final NotesRepository mNotesRepository;
     private final ImageFile mImageFile;
 
-    public AddNotePresenter(AddNoteContract.View addNoteView/*, ImageFile imageFile*/) {
+    public AddNotePresenter(NotesRepository notesRepository, AddNoteContract.View addNoteView, ImageFile imageFile) {
+        mNotesRepository = checkNotNull(notesRepository);
         mAddNoteView = checkNotNull(addNoteView);
-        mImageFile = null;
+        mImageFile = imageFile;
     }
 
     @Override
